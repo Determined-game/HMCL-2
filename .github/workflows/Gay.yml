@@ -1,0 +1,22 @@
+public class ModernJavaSelector {
+
+    public static int getRequiredJava(String version) {
+        // Handle the new 2026+ numbering (e.g., "26.1", "26.2")
+        if (version.startsWith("26.")) {
+            return 25; // All 2026 drops require Java 25
+        }
+
+        // Handle the transition versions (e.g., "1.21.11")
+        if (isAtLeast(version, "1.20.5")) {
+            return 21; 
+        }
+
+        return 8; // Legacy
+    }
+
+    private static boolean isAtLeast(String current, String target) {
+        // Use a standard version comparator for 1.x.x strings
+        return new ComparableVersion(current).compareTo(new ComparableVersion(target)) >= 0;
+    
+    }
+}
